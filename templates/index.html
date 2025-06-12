@@ -1,21 +1,77 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lista de Tarefas</title>
-  <link rel="stylesheet" href="/static/style.css">
+    <meta charset="UTF-8">
+    <title>Minha Lista de Tarefas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <div class="container">
-    <h1>Lista de Tarefas</h1>
-    <div class="input-container">
-      <input type="text" id="taskInput" placeholder="Digite uma nova tarefa...">
-      <button onclick="addTask()">Adicionar</button>
-    </div>
-    <ul id="taskList"></ul>
-  </div>
+    <div class="container">
+        <h1>📝 Lista de Tarefas</h1>
 
-  <script src="/static/script.js"></script>
+        <!-- Formulário de Cadastro -->
+        <form id="taskForm">
+            <input type="text" name="title" placeholder="Nova tarefa..." required>
+            <button type="submit">Adicionar</button>
+        </form>
+
+        <!-- Lista de Tarefas -->
+        <ul id="taskList">
+            {% for task in tasks %}
+            <li class="{{ 'done' if task.done else '' }}">
+                {{ task.title }}
+                <button class="toggle-done" data-id="{{ task.id }}" data-done="{{ task.done }}">
+                    {{ 'Desfazer' if task.done else 'Concluir' }}
+                </button>
+                <button class="delete-task" data-id="{{ task.id }}">Excluir</button>
+            </li>
+            {% else %}
+            <li>Nenhuma tarefa cadastrada.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Script JavaScript -->
+    <script>
+        // Adicionar tarefa
+        document.getElementById("taskForm").addEventListener('submit', e => {
+            e.preventDefault();
+            const title = e.target.title.value;
+
+            fetch("/tasks", {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ title: title })
+            }).then(() => location.reload());
+        });
+
+        // Atualizar tarefa
+        document.querySelectorAll('.toggle-done').forEach(button => {
+            button.addEventListener('click', () => {
+                const id = button.dataset.id;
+                const done = button.dataset.done === 'true' ? false : true;
+
+                fetch(`/tasks/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ done: done })
+                }).then(() => location.reload());
+            });
+        });
+
+        // Excluir tarefa
+        document.querySelectorAll('.delete-task').forEach(button => {
+            button.addEventListener('click', () => {
+                const id = button.dataset.id;
+
+                fetch(`/tasks/${id}`, {
+                    method: 'DELETE'
+                }).then(() => location.reload());
+            });
+        });
+    </script>
 </body>
 </html>
+
+
+

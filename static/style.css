@@ -1,83 +1,77 @@
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+    font-family: Arial, sans-serif;
+    background: #f2f2f2;
+    margin: 0;
+    padding: 0;
 }
 
 .container {
-  background: #fff;
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  width: 100%;
-  max-width: 400px;
+    max-width: 600px;
+    margin: 50px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
 h1 {
-  text-align: center;
-  color: #333;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
-.input-container {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
+form {
+    display: flex;
+    gap: 10px;
 }
 
 input[type="text"] {
-  flex: 1;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+    flex: 1;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
 }
 
 button {
-  padding: 0.5rem 1rem;
-  border: none;
-  background-color: #71BBB4;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    background-color: #1976d2;
+    color: white;
+    cursor: pointer;
 }
 
 button:hover {
-  background-color: #5fa39d;
+    background-color: #1565c0;
 }
 
 ul {
-  list-style-type: none;
-  padding: 0;
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
 }
 
 li {
-  background-color: #f9f9f9;
-  margin-bottom: 0.5rem;
-  padding: 0.5rem;
-  border-radius: 5px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    background: #eee;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-li.completed {
-  text-decoration: line-through;
-  color: #999;
+li.done {
+    text-decoration: line-through;
+    color: gray;
+    background: #d0ffd0;
 }
 
-.action-buttons button {
-  background-color: transparent;
-  color: #71BBB4;
-  border: none;
-  cursor: pointer;
-  margin-left: 0.5rem;
+li button {
+    margin-left: 10px;
+    background: #e53935;
 }
 
-.action-buttons button:hover {
-  color: #3f7b77;
+li button.toggle-done {
+    background: #43a047;
 }
+

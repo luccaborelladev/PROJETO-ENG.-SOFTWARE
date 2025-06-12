@@ -2,6 +2,8 @@
  # app.py
 from flask import Flask, request, jsonify
 from models import db, Task
+from flask import render_template  # adicione no topo junto com os imports
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
@@ -12,6 +14,12 @@ db.init_app(app)
 # Criar o banco de dados
 with app.app_context():
     db.create_all()
+
+# Rota para a página inicial
+@app.route('/')
+def home():
+    tasks = Task.query.all()
+    return render_template('index.html', tasks=tasks)
 
 # Rota para obter todas as tarefas
 @app.route('/tasks', methods=['GET'])
@@ -48,3 +56,4 @@ def delete_task(id):
 
 if __name__ == '__main__':
     app.run(debug=True)
+
